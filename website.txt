@@ -1,0 +1,81 @@
+<!doctype html>
+<h2>Pricing</h2>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px">
+<div class="card">
+<h3>Starter</h3>
+<p class="small">Free — basic features</p>
+<div style="margin-top:12px;font-weight:800">$0 / month</div>
+</div>
+<div class="card">
+<h3>Pro</h3>
+<p class="small">Most popular</p>
+<div style="margin-top:12px;font-weight:800">$12 / month</div>
+</div>
+<div class="card">
+<h3>Enterprise</h3>
+<p class="small">Custom solutions</p>
+<div style="margin-top:12px;font-weight:800">Contact us</div>
+</div>
+</div>
+</section>
+
+
+<section id="contact" style="margin-top:28px">
+<h2>Contact</h2>
+<div class="card" style="margin-top:12px">
+<form id="contactForm">
+<div class="row">
+<input type="text" id="name" placeholder="Your name" required />
+<input type="email" id="email" placeholder="Email address" required />
+</div>
+<div style="margin-top:12px">
+<textarea id="message" rows="4" placeholder="How can we help?" required></textarea>
+</div>
+<div style="margin-top:12px;display:flex;gap:8px;align-items:center">
+<button class="btn" type="submit">Send message</button>
+<div id="formStatus" class="small"></div>
+</div>
+</form>
+</div>
+</section>
+
+
+</main>
+
+
+<footer>
+<div class="small">© <span id="year"></span> SiteName • Built with ♥</div>
+</footer>
+</div>
+
+
+<script>
+// simple interactions
+document.getElementById('year').textContent = new Date().getFullYear();
+
+
+document.getElementById('contactForm').addEventListener('submit', function(e){
+e.preventDefault();
+const name = document.getElementById('name').value.trim();
+const email = document.getElementById('email').value.trim();
+const message = document.getElementById('message').value.trim();
+const status = document.getElementById('formStatus');
+if(!name||!email||!message){ status.textContent='Please fill all fields.'; return; }
+status.textContent='Sending...';
+setTimeout(()=>{ status.textContent='Thanks — we\'ll get back to you soon.'; document.getElementById('contactForm').reset(); },900);
+});
+
+
+// Download the single-file HTML
+document.getElementById('downloadBtn').addEventListener('click', function(){
+const content = `<!doctype html>\n${document.documentElement.outerHTML}`;
+const blob = new Blob([content], {type: 'text/html'});
+const url = URL.createObjectURL(blob);
+const a = document.createElement('a');
+a.href = url; a.download = 'site.html';
+document.body.appendChild(a); a.click(); a.remove();
+URL.revokeObjectURL(url);
+});
+</script>
+</body>
+</html>
